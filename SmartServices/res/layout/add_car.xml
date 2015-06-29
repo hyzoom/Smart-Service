@@ -18,10 +18,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5.0dip"
             android:layout_marginRight="10.0dip"
+            android:layout_marginLeft="10.0dip"
             android:layout_marginTop="3dip"
             android:src="@drawable/add_car_i" />
 
         <TextView
+            android:id="@+id/addCarTitleTV"
             style="@android:style/TextAppearance.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_btn"
                 android:gravity="center"
-                android:hint="* Brand"
                 android:padding="10dip"
                 android:textSize="18sp"
                 android:visibility="gone" />
@@ -131,7 +132,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_btn"
                 android:gravity="center"
-                android:hint="* Model"
                 android:padding="10dip"
                 android:textSize="18sp"
                 android:visibility="gone" />
@@ -188,7 +188,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/imageView31"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
@@ -209,7 +209,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/white_btn"
                 android:gravity="center"
-                android:hint="* Color"
                 android:padding="10dip"
                 android:textSize="18sp"
                 android:visibility="gone" />
@@ -225,7 +224,7 @@
                     android:layout_margin="10dip"
                     android:background="@drawable/white_btn"
                     android:gravity="center"
-                    android:hint="Insurance Company"
+                    android:hint="* Insurance Company"
                     android:padding="10dip"
                     android:singleLine="true"
                     android:textSize="18sp" />
@@ -236,7 +235,6 @@
                     android:layout_height="wrap_content"
                     android:background="#ffffffff"
                     android:gravity="center"
-                    android:hint="Insurance Company"
                     android:padding="10dip"
                     android:singleLine="true"
                     android:visibility="gone" />

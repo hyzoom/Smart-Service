@@ -1,5 +1,7 @@
 package smart.services.fragment;
 
+import info.androidhive.slidingmenu.R;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import smart.services.adapter.BookingServiceTypeAdapter;
 import smart.services.adapter.CarFromBookingAdapter;
 import smart.services.functions.BookingFunctions;
 import smart.services.functions.CarFunctions;
@@ -18,7 +21,6 @@ import smart.services.model.CarTest;
 import smart.services.model.Model;
 import smart.services.model.ServiceType;
 import smart.services.model.Setting;
-import info.androidhive.slidingmenu.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -94,8 +96,9 @@ public class Booking extends Fragment {
 		databaseHandler = new DataBaseHandler(getActivity());
 		carFunctions = new CarFunctions(getActivity());
 		bookingFunctions = new BookingFunctions(getActivity());
-		dialog = new Dialog(getActivity());
 		setting = databaseHandler.getSetting();
+		dialog = new Dialog(getActivity());
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		View rootView = inflater.inflate(R.layout.bookings, container, false);
 
@@ -149,12 +152,11 @@ public class Booking extends Fragment {
 					R.string.booking_service_type_en));
 			bookingTimeTV.setHint(getResources().getString(
 					R.string.booking_time_en));
-			
+
 			commentTxt.setHint(getResources().getString(
-							R.string.booking_comment_en));
-			
-			submit.setText(getResources().getString(
-							R.string.booking_submet_en));
+					R.string.booking_comment_en));
+
+			submit.setText(getResources().getString(R.string.booking_submet_en));
 
 		} else {
 			chooseCarEnIV.setVisibility(View.GONE);
@@ -169,12 +171,11 @@ public class Booking extends Fragment {
 					R.string.booking_service_type_ar));
 			bookingTimeTV.setHint(getResources().getString(
 					R.string.booking_time_ar));
-			
+
 			commentTxt.setHint(getResources().getString(
 					R.string.booking_comment_ar));
-			
-			submit.setText(getResources().getString(
-					R.string.booking_submet_ar));
+
+			submit.setText(getResources().getString(R.string.booking_submet_ar));
 		}
 
 		carTV.setOnClickListener(new OnClickListener() {
@@ -233,8 +234,7 @@ public class Booking extends Fragment {
 		System.out.println("finalComment >" + finalComment);
 	}
 
-	
-	@SuppressLint("InlinedApi") 
+	@SuppressLint("InlinedApi")
 	@SuppressWarnings("deprecation")
 	public void showCarsDialog() {
 		if (databaseHandler.getCarsCount() == 0) {
@@ -245,14 +245,12 @@ public class Booking extends Fragment {
 						Toast.LENGTH_LONG).show();
 			}
 		} else {
-			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-			
 			if (setting.getDuration() == 0) {
-				dialog.setContentView(R.layout.manage_car_info);				
+				dialog.setContentView(R.layout.manage_car_info);
 			} else {
 				dialog.setContentView(R.layout.dialog_car_list_ar);
 			}
-			
+
 			lv = (ListView) dialog.findViewById(R.id.carsTestList);
 			swipeView = (SwipeRefreshLayout) dialog
 					.findViewById(R.id.swipeOffersCarInfo);
@@ -270,7 +268,9 @@ public class Booking extends Fragment {
 					android.R.color.holo_orange_light,
 					android.R.color.holo_red_light);
 			dialog.setCancelable(true);
+
 			dialog.setTitle("Choose a car");
+
 			Booking.changeWidthHeight(getActivity(), dialog);
 
 			carsList = databaseHandler.getUserCars(databaseHandler.getUser(1)
@@ -298,14 +298,14 @@ public class Booking extends Fragment {
 
 					if (setting.getDuration() == 0) {
 						carTV.setText(brand.getTypeNameEn() + "   "
-							+ model.getTypeNameEn() + "   "
-							+ selectedCar.getPlateNumber());
+								+ model.getTypeNameEn() + "   "
+								+ selectedCar.getPlateNumber());
 					} else {
 						carTV.setText(brand.getTypeNameAr() + "   "
 								+ model.getTypeNameAr() + "   "
 								+ selectedCar.getPlateNumber());
 					}
-					
+
 					selectedCarId = selectedCar.getCarId();
 					carIdTV.setText(selectedCarId);
 					if (dialog.isShowing()) {
@@ -317,7 +317,6 @@ public class Booking extends Fragment {
 			dialog.show();
 		}
 	}
-	
 
 	@SuppressWarnings("deprecation")
 	public static void changeWidthHeight(Context c, Dialog dialog) {
@@ -327,7 +326,6 @@ public class Booking extends Fragment {
 				display.getHeight() * 3 / 4);
 	}
 
-	
 	@SuppressWarnings("deprecation")
 	public static void changeWidthHeightDim(Context c, Dialog dialog) {
 		Window window = dialog.getWindow();
@@ -336,7 +334,6 @@ public class Booking extends Fragment {
 				display.getHeight() * 1 / 2);
 	}
 
-	
 	public static void showSubmitDialog(Context c, String address) {
 		dialog_ = new Dialog(c);
 		dialog_.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -354,7 +351,6 @@ public class Booking extends Fragment {
 		});
 	}
 
-	
 	private class CarsAsyncTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
@@ -379,13 +375,15 @@ public class Booking extends Fragment {
 				progress.dismiss();
 			}
 
-			dialog.setContentView(R.layout.manage_car_info);
+			if (setting.getDuration() == 0) {
+				dialog.setContentView(R.layout.manage_car_info);
+			} else {
+				dialog.setContentView(R.layout.dialog_car_list_ar);
+			}
+
 			lv = (ListView) dialog.findViewById(R.id.carsTestList);
 			swipeView = (SwipeRefreshLayout) dialog
 					.findViewById(R.id.swipeOffersCarInfo);
-			dialog.setCancelable(true);
-			dialog.setTitle("Choose a car");
-			Booking.changeWidthHeight(getActivity(), dialog);
 			swipeView
 					.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 						@Override
@@ -399,6 +397,10 @@ public class Booking extends Fragment {
 					android.R.color.holo_green_light,
 					android.R.color.holo_orange_light,
 					android.R.color.holo_red_light);
+			dialog.setCancelable(true);
+			dialog.setTitle("Choose a car");
+			Booking.changeWidthHeight(getActivity(), dialog);
+
 			carsList = databaseHandler.getUserCars(databaseHandler.getUser(1)
 					.getUserId());
 
@@ -424,8 +426,8 @@ public class Booking extends Fragment {
 
 					if (setting.getDuration() == 0) {
 						carTV.setText(brand.getTypeNameEn() + "   "
-							+ model.getTypeNameEn() + "   "
-							+ selectedCar.getPlateNumber());
+								+ model.getTypeNameEn() + "   "
+								+ selectedCar.getPlateNumber());
 					} else {
 						carTV.setText(brand.getTypeNameAr() + "   "
 								+ model.getTypeNameAr() + "   "
@@ -444,9 +446,7 @@ public class Booking extends Fragment {
 		}
 	}
 
-	
 	public void showServiceDialog() {
-
 		if (databaseHandler.getServiceTypesCount() == 0) {
 			if (carFunctions.isConnectingToInternet()) {
 				new ServiceTypeAsyncTask().execute();
@@ -455,46 +455,37 @@ public class Booking extends Fragment {
 						Toast.LENGTH_LONG).show();
 			}
 		} else {
-			dialog.setContentView(R.layout.service_type_dialog);
+			if (setting.getDuration() == 0) {
+				dialog.setContentView(R.layout.service_type_dialog);
+			} else {
+				dialog.setContentView(R.layout.dialog_service_type_ar);
+			}
+
 			dialog.setCancelable(true);
 			dialog.setTitle("Choose Service Type");
 			Booking.changeWidthHeight(getActivity(), dialog);
 
-			List<ServiceType> typeList = databaseHandler.getAllServiceTypes();
-			serviceTypeList.clear();
-			for (int i = 0; i < typeList.size(); i++) {
-				HashMap<String, String> serviceType = new HashMap<String, String>();
-				serviceType.put("typeId", typeList.get(i).getTypeId());
-				serviceType.put("typeNameAr", typeList.get(i).getTypeNameAr());
-				serviceType.put("typeNameEn", typeList.get(i).getTypeNameEn());
+			final List<ServiceType> typeList = databaseHandler.getAllServiceTypes();
 
-				serviceTypeList.add(serviceType);
-			}
+			BookingServiceTypeAdapter bookingServiceTypeAdapter = new BookingServiceTypeAdapter(
+					getActivity(), R.layout.dialog_service_type_ar,
+					databaseHandler.getAllServiceTypes());
 
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					serviceTypeList, R.layout.single_service_type_item,
-					new String[] { "typeId", "typeNameAr", "typeNameEn" },
-					new int[] { R.id.serTypeId, R.id.serTypeNameAr,
-							R.id.serTypeNameEn });
 			lv = (ListView) dialog.findViewById(R.id.serviceTypeLV);
-			lv.setAdapter(adapter);
+			lv.setAdapter(bookingServiceTypeAdapter);
 
 			lv.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 
-					String serTypeId = ((TextView) view
-							.findViewById(R.id.serTypeId)).getText().toString();
-					
 					if (setting.getDuration() == 0) {
-						serviceTypeTV.setText(serviceTypeList.get(position).get("typeNameEn"));
+						serviceTypeTV.setText(typeList.get(position).getTypeNameEn());
 					} else {
-						serviceTypeTV.setText(serviceTypeList.get(position).get("typeNameAr"));
+						serviceTypeTV.setText(typeList.get(position).getTypeNameAr());
 					}
-					
-					
-					serviceTypeIdTV.setText(serTypeId);
+
+					serviceTypeIdTV.setText(typeList.get(position).getTypeId());
 
 					dialog.dismiss();
 				}
@@ -522,7 +513,6 @@ public class Booking extends Fragment {
 		}
 
 	}
-	
 
 	private class ServiceTypeAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -547,46 +537,37 @@ public class Booking extends Fragment {
 				progress.dismiss();
 			}
 
-			dialog.setContentView(R.layout.service_type_dialog);
+			if (setting.getDuration() == 0) {
+				dialog.setContentView(R.layout.service_type_dialog);
+			} else {
+				dialog.setContentView(R.layout.dialog_service_type_ar);
+			}
+
 			dialog.setCancelable(true);
 			dialog.setTitle("Choose Service Type");
 			Booking.changeWidthHeight(getActivity(), dialog);
 
-			List<ServiceType> typeList = databaseHandler.getAllServiceTypes();
+			final List<ServiceType> typeList = databaseHandler.getAllServiceTypes();
 
-			serviceTypeList.clear();
-			for (int i = 0; i < typeList.size(); i++) {
-				HashMap<String, String> serviceType = new HashMap<String, String>();
-				serviceType.put("typeId", typeList.get(i).getTypeId());
-				serviceType.put("typeNameAr", typeList.get(i).getTypeNameAr());
-				serviceType.put("typeNameEn", typeList.get(i).getTypeNameEn());
+			BookingServiceTypeAdapter bookingServiceTypeAdapter = new BookingServiceTypeAdapter(
+					getActivity(), R.layout.dialog_service_type_ar,
+					databaseHandler.getAllServiceTypes());
 
-				serviceTypeList.add(serviceType);
-			}
-
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					serviceTypeList, R.layout.single_service_type_item,
-					new String[] { "typeId", "typeNameAr", "typeNameEn" },
-					new int[] { R.id.serTypeId, R.id.serTypeNameAr,
-							R.id.serTypeNameEn });
 			lv = (ListView) dialog.findViewById(R.id.serviceTypeLV);
-			lv.setAdapter(adapter);
+			lv.setAdapter(bookingServiceTypeAdapter);
 
 			lv.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 
-					String serTypeId = ((TextView) view
-							.findViewById(R.id.serTypeId)).getText().toString();
-					
 					if (setting.getDuration() == 0) {
-						serviceTypeTV.setText(serviceTypeList.get(position).get("typeNameEn"));
+						serviceTypeTV.setText(typeList.get(position).getTypeNameEn());
 					} else {
-						serviceTypeTV.setText(serviceTypeList.get(position).get("typeNameAr"));
+						serviceTypeTV.setText(typeList.get(position).getTypeNameAr());
 					}
-					
-					serviceTypeIdTV.setText(serTypeId);
+
+					serviceTypeIdTV.setText(typeList.get(position).getTypeId());
 
 					dialog.dismiss();
 				}
@@ -614,7 +595,6 @@ public class Booking extends Fragment {
 		}
 	}
 
-	
 	public void showBookingTimeDialog() {
 		dialog.setContentView(R.layout.booking_time_dialog);
 		datePicker = (DatePicker) dialog.findViewById(R.id.dpResult);
@@ -660,7 +640,6 @@ public class Booking extends Fragment {
 		});
 
 	}
-	
 
 	public class AddBooking extends AsyncTask<Void, Void, Void> {
 		String carmodelid = "";

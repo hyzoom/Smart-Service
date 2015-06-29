@@ -16,6 +16,7 @@ import smart.services.model.CarTest;
 import smart.services.model.Color;
 import smart.services.model.Insurance;
 import smart.services.model.Model;
+import smart.services.model.Setting;
 import info.androidhive.slidingmenu.R;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -43,7 +44,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class AddCar extends Fragment {
 	ListView lv;
 	SwipeRefreshLayout swipeView;
-	TextView brandTV, brandIdTV, modelTV, modelIdTV, colorNameTV, yearTV,
+	TextView addCarTitleTV, brandTV, brandIdTV, modelTV, modelIdTV, colorNameTV, yearTV,
 			insuranceTV, insuranceIdTV, errorMessageTV, colorIdTV;
 	EditText memberName, chassisEt, licenseNumberET;
 	Button submit;
@@ -65,10 +66,11 @@ public class AddCar extends Fragment {
 			carsColorList, insuracneCompanyList;
 	HashMap<String, String> model;
 
-	private DataBaseHandler dBCT;
+	private DataBaseHandler dataBaseHandler;
 	private Dialog dialog;
 	private CarFunctions carFunctions;
 	private ProgressDialog progress;
+	private Setting setting;
 
 	public AddCar() {
 	}
@@ -76,12 +78,14 @@ public class AddCar extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		dBCT = new DataBaseHandler(getActivity());
+		dataBaseHandler = new DataBaseHandler(getActivity());
 		carFunctions = new CarFunctions(getActivity());
 		dialog = new Dialog(getActivity());
-
+		setting = dataBaseHandler.getSetting();
+		
 		View rootView = inflater.inflate(R.layout.add_car, container, false);
 		submit = (Button) rootView.findViewById(R.id.submit);
+		addCarTitleTV = (TextView) rootView.findViewById(R.id.addCarTitleTV);
 		brandTV = (TextView) rootView.findViewById(R.id.brand);
 		brandIdTV = (TextView) rootView.findViewById(R.id.brandId);
 		modelTV = (TextView) rootView.findViewById(R.id.model);
@@ -92,8 +96,10 @@ public class AddCar extends Fragment {
 		insuranceTV = (TextView) rootView.findViewById(R.id.insuranceTV);
 		insuranceIdTV = (TextView) rootView.findViewById(R.id.insuranceIdTV);
 		errorMessageTV = (TextView) rootView.findViewById(R.id.errorMsg);
+		
 		chassisEt = (EditText) rootView.findViewById(R.id.chassis);
 		memberName = (EditText) rootView.findViewById(R.id.memberName);
+		licenseNumberET = (EditText) rootView.findViewById(R.id.licenseNumber);
 
 		init();
 
@@ -107,12 +113,22 @@ public class AddCar extends Fragment {
 	}
 
 	public void init() {
+		if (setting.getDuration() == 1) {
+			addCarTitleTV.setText(getResources().getString(R.string.add_car_title_ar));
+			brandTV.setHint(getResources().getString(R.string.add_car_hint_brand_ar));
+			modelTV.setHint(getResources().getString(R.string.add_car_hint_model_ar));
+			yearTV.setHint(getResources().getString(R.string.add_car_hint_year_ar));
+			colorNameTV.setHint(getResources().getString(R.string.add_car_hint_color_ar));
+			insuranceTV.setHint(getResources().getString(R.string.add_car_hint_insurance_company_ar));
+			licenseNumberET.setHint(getResources().getString(R.string.add_car_hint_licence_ar));
+			chassisEt.setHint(getResources().getString(R.string.add_car_hint_chass_ar));
+		}
 		carsBrandList = new ArrayList<HashMap<String, String>>();
 		carsModelList = new ArrayList<HashMap<String, String>>();
 		carsColorList = new ArrayList<HashMap<String, String>>();
 		insuracneCompanyList = new ArrayList<HashMap<String, String>>();
 
-		memberName.setText(dBCT.getUser(1).getName());
+		memberName.setText(dataBaseHandler.getUser(1).getName());
 		brandTV.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -155,9 +171,7 @@ public class AddCar extends Fragment {
 	}
 
 	public void addCar() {
-		licenseNumberET = (EditText) getActivity().findViewById(
-				R.id.licenseNumber);
-		finalUserId = dBCT.getUser(1).getUserId();
+		finalUserId = dataBaseHandler.getUser(1).getUserId();
 		System.out.println("finalUserId " + finalUserId);
 		finalChase = chassisEt.getText().toString();
 		finalPlateNum = licenseNumberET.getText().toString();
@@ -281,12 +295,12 @@ public class AddCar extends Fragment {
 				newC.setInsuranceId(Integer.parseInt(this.finalInsuranceId));
 
 				// CarTest newCar = new CarTest(carId,
-				// dBCT.getUser(1).getUserId(), brandTV.getText()
+				// dataBaseHandler.getUser(1).getUserId(), brandTV.getText()
 				// .toString(), this.finalModelId, modelTV
 				// .getText().toString(), this.finalYear,
 				// colorNameTV.getText().toString(), this.finalChase);
-				// newCar.setUserId(dBCT.getUser(1).getUserId());
-				dBCT.addCar(newC);
+				// newCar.setUserId(dataBaseHandler.getUser(1).getUserId());
+				dataBaseHandler.addCar(newC);
 				getActivity().finish();
 				Intent intent = new Intent(getActivity(), getActivity()
 						.getClass());
@@ -338,7 +352,7 @@ public class AddCar extends Fragment {
 
 	@SuppressWarnings("deprecation")
 	public void showBrandDialog() {
-		if (dBCT.getBrandsCount() == 0) {
+		if (dataBaseHandler.getBrandsCount() == 0) {
 			if (carFunctions.isConnectingToInternet()) {
 				new BrandAsyncTask().execute();
 			} else {
@@ -354,7 +368,7 @@ public class AddCar extends Fragment {
 			Booking.changeWidthHeight(getActivity(), dialog);
 			// dialog.setP
 			lv = (ListView) dialog.findViewById(R.id.addLV);
-			List<Brand> brandList = dBCT.getAllBrands();
+			List<Brand> brandList = dataBaseHandler.getAllBrands();
 			carsBrandList.clear();
 			for (int i = 0; i < brandList.size(); i++) {
 				HashMap<String, String> brand = new HashMap<String, String>();
@@ -441,7 +455,7 @@ public class AddCar extends Fragment {
 			// dialog.setP
 			lv = (ListView) dialog.findViewById(R.id.addLV);
 
-			List<Brand> brandList = dBCT.getAllBrands();
+			List<Brand> brandList = dataBaseHandler.getAllBrands();
 			carsBrandList.clear();
 			for (int i = 0; i < brandList.size(); i++) {
 				HashMap<String, String> brand = new HashMap<String, String>();
@@ -508,7 +522,7 @@ public class AddCar extends Fragment {
 		// dialog.setP
 		lv = (ListView) dialog.findViewById(R.id.addLV);
 
-		if (dBCT.getModelsCount() == 0) {
+		if (dataBaseHandler.getModelsCount() == 0) {
 			if (carFunctions.isConnectingToInternet()) {
 				new CarModel().execute();
 			} else {
@@ -516,7 +530,7 @@ public class AddCar extends Fragment {
 						Toast.LENGTH_LONG).show();
 			}
 		} else {
-			List<Model> modelList = dBCT.getAllModels();
+			List<Model> modelList = dataBaseHandler.getAllModels();
 			carsModelList.clear();
 			for (int i = 0; i < modelList.size(); i++) {
 				if (modelList.get(i).getParentBrand()
@@ -536,7 +550,7 @@ public class AddCar extends Fragment {
 					for (int i = 0; i < modelList.size(); i++) {
 						if (modelList.get(i).getParentBrand()
 								.equals(brandTV.getText().toString())) {
-							dBCT.deleteSingleBrand(modelList.get(i).getId());
+							dataBaseHandler.deleteSingleBrand(modelList.get(i).getId());
 						}
 					}
 					new CarModel().execute();
@@ -637,7 +651,7 @@ public class AddCar extends Fragment {
 							modelRow.setTypeNameAr(modelNameAr);
 							modelRow.setTypeNameEn(modelNameEn);
 							modelRow.setParentBrand(s);
-							dBCT.addModel(modelRow);
+							dataBaseHandler.addModel(modelRow);
 
 							carsModelList.add(model);
 							continue;
@@ -677,7 +691,7 @@ public class AddCar extends Fragment {
 		// dialog.setP
 		lv = (ListView) dialog.findViewById(R.id.addLV);
 
-		if (dBCT.getColorsCount() == 0) {
+		if (dataBaseHandler.getColorsCount() == 0) {
 			if (carFunctions.isConnectingToInternet()) {
 				new CarColor().execute();
 			} else {
@@ -685,7 +699,7 @@ public class AddCar extends Fragment {
 						Toast.LENGTH_LONG).show();
 			}
 		} else {
-			List<Color> colorList = dBCT.getAllColors();
+			List<Color> colorList = dataBaseHandler.getAllColors();
 
 			carsColorList.clear();
 			for (int i = 0; i < colorList.size(); i++) {
@@ -757,7 +771,7 @@ public class AddCar extends Fragment {
 			// Creating service handler class instance
 			String url = colorURL;
 			try {
-				dBCT.deleteAllColors();
+				dataBaseHandler.deleteAllColors();
 				JSONObject jsonObj = jP.getJSONFromUrl(url);
 				Log.d("Response: ", "> " + jsonObj);
 				userCarsDTOs = jsonObj.getString("userCarsDTOs");
@@ -773,7 +787,7 @@ public class AddCar extends Fragment {
 					colorRow.setColorAr(colorAr);
 					colorRow.setColorEn(colorEn);
 
-					dBCT.addColor(colorRow);
+					dataBaseHandler.addColor(colorRow);
 
 					HashMap<String, String> color = new HashMap<String, String>();
 					color.put("id", id);
@@ -849,7 +863,7 @@ public class AddCar extends Fragment {
 		// dialog.setP
 		lv = (ListView) dialog.findViewById(R.id.addLV);
 		swipeView = (SwipeRefreshLayout) dialog.findViewById(R.id.swipeDialog);
-		if (dBCT.getInsuranceCount() == 0) {
+		if (dataBaseHandler.getInsuranceCount() == 0) {
 			if (carFunctions.isConnectingToInternet()) {
 				new InsuranceAsyncTask().execute();
 			} else {
@@ -858,7 +872,7 @@ public class AddCar extends Fragment {
 			}
 		} else {
 			insuracneCompanyList.clear();
-			ArrayList<Insurance> insuranceArrayList = dBCT.getAllInsurance();
+			ArrayList<Insurance> insuranceArrayList = dataBaseHandler.getAllInsurance();
 			for (int i = 0; i < insuranceArrayList.size(); i++) {
 				HashMap<String, String> insurance = new HashMap<String, String>();
 				insurance.put("id", insuranceArrayList.get(i).getId() + "");
@@ -932,7 +946,7 @@ public class AddCar extends Fragment {
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 
-			ArrayList<Insurance> insuranceArrayList = dBCT.getAllInsurance();
+			ArrayList<Insurance> insuranceArrayList = dataBaseHandler.getAllInsurance();
 			for (int i = 0; i < insuranceArrayList.size(); i++) {
 				HashMap<String, String> insurance = new HashMap<String, String>();
 				insurance.put("id", insuranceArrayList.get(i).getId() + "");

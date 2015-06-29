@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/li"
+        android:layout_width="fill_parent"
+        android:layout_height="55dip"
+        android:layout_marginBottom="5dip"
+        android:background="#669933"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginLeft="10.0dip"
+            android:text="قائمة الخدمات"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+        
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginTop="3dip"
+            android:src="@drawable/mng_i" />
+
+        
+    </LinearLayout>
+    
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeDialogST"
+        android:layout_below="@+id/li"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+
+        <!-- <ScrollView -->
+        <!-- android:layout_width="match_parent" -->
+        <!-- android:layout_height="match_parent" > -->
+
+        <ListView
+            android:id="@+id/serviceTypeLV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+        <!-- </ScrollView> -->
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

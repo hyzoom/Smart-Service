@@ -19,6 +19,7 @@ import smart.services.model.CarTest;
 import smart.services.model.Color;
 import smart.services.model.Insurance;
 import smart.services.model.Model;
+import smart.services.model.Setting;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -60,6 +61,7 @@ public class ManageCarsAdapter extends ArrayAdapter<CarTest> {
 	private DataBaseHandler dataBaseHandler;
 	private ProgressDialog progress;
 	private Dialog dialog, editDialog;
+	private Setting setting;
 
 	private static String URL = "http://smarty-trioplus.rhcloud.com/supportCenter/CarList";
 	private static String colorURL = "http://smarty-trioplus.rhcloud.com/supportCenter/getCarColors";
@@ -103,31 +105,44 @@ public class ManageCarsAdapter extends ArrayAdapter<CarTest> {
 		dialog = new Dialog(context);
 		editDialog = new Dialog(context);
 		carFunctions = new CarFunctions(context);
+		setting = dataBaseHandler.getSetting();
 
 		View view = inflator.inflate(R.layout.car_list_adapter, parent, false);
 
 		brandNameTV = (TextView) view.findViewById(R.id.brand_name);
 		modelNameTV = (TextView) view.findViewById(R.id.model_text_view);
 		yearTV = (TextView) view.findViewById(R.id.year_textView);
-		licenseNumberTV = (TextView) view
-				.findViewById(R.id.licence_number_text_view);
+		licenseNumberTV = (TextView) view.findViewById(R.id.licence_number_text_view);
 		colorTV = (TextView) view.findViewById(R.id.color_textView);
 
 		editLayout = (LinearLayout) view.findViewById(R.id.edit_layout);
 		deleteLayout = (LinearLayout) view.findViewById(R.id.delete_layout);
 
-		brandNameTV.setText(dataBaseHandler.getBrand(
-				dataBaseHandler.getModel(carList.get(position).getCarModelId())
-						.getParentBrand()).getTypeNameEn());
-		modelNameTV.setText(dataBaseHandler.getModel(
-				carList.get(position).getCarModelId()).getTypeNameEn());
-		yearTV.setText(carList.get(position).getYear());
+		if (setting.getDuration() == 0) {
+			brandNameTV.setText(dataBaseHandler.getBrand(
+					dataBaseHandler.getModel(carList.get(position).getCarModelId())
+							.getParentBrand()).getTypeNameEn());
+			modelNameTV.setText(dataBaseHandler.getModel(
+					carList.get(position).getCarModelId()).getTypeNameEn());
+			yearTV.setText(carList.get(position).getYear());
 
-		licenseNumberTV.setText(carList.get(position).getPlateNumber());
+			licenseNumberTV.setText(carList.get(position).getPlateNumber());
+			colorTV.setText(dataBaseHandler.getColor(
+					carList.get(position).getCarColor()).getColorEn());
+			
+		} else {
+			brandNameTV.setText(dataBaseHandler.getBrand(
+					dataBaseHandler.getModel(carList.get(position).getCarModelId())
+							.getParentBrand()).getTypeNameAr());
+			modelNameTV.setText(dataBaseHandler.getModel(
+					carList.get(position).getCarModelId()).getTypeNameAr());
+			yearTV.setText(carList.get(position).getYear());
 
-		colorTV.setText(dataBaseHandler.getColor(
-				carList.get(position).getCarColor()).getColorEn());
-
+			licenseNumberTV.setText(carList.get(position).getPlateNumber());
+			colorTV.setText(dataBaseHandler.getColor(
+					carList.get(position).getCarColor()).getColorAr());
+		}
+		
 		deleteLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

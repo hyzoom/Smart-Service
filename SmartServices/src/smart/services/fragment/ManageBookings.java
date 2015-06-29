@@ -7,12 +7,11 @@ import smart.services.functions.BookingFunctions;
 import smart.services.functions.CarFunctions;
 import smart.services.handler.DataBaseHandler;
 import smart.services.model.BookingModel;
+import smart.services.model.Setting;
 import info.androidhive.slidingmenu.R;
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ManageBookings extends Fragment {
@@ -29,14 +29,17 @@ public class ManageBookings extends Fragment {
 	private ArrayList<BookingModel> bookArrayList = new ArrayList<BookingModel>();
 
 	private ListView lv;
+	private TextView bookingsTitleTV;
 	private SwipeRefreshLayout swipeView;
 	private ProgressDialog pDialog;
 
 	private DataBaseHandler databaseHandler;
+	private Setting setting;
 
 	public ManageBookings() {
 	}
 
+	@SuppressLint("InlinedApi") 
 	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,13 +47,16 @@ public class ManageBookings extends Fragment {
 		bookingFunctions = new BookingFunctions(getActivity());
 		carFunctions = new CarFunctions(getActivity());
 		databaseHandler = new DataBaseHandler(getActivity());
-		
-//		Toast.makeText(getActivity(), databaseHandler.getUser(1).getUserId(),
-//				Toast.LENGTH_LONG).show();
+		setting = databaseHandler.getSetting();
 		
 		View rootView = inflater.inflate(R.layout.manage_booking, container,
 				false);
 		lv = (ListView) rootView.findViewById(R.id.bookingHistoryLV);
+		bookingsTitleTV = (TextView) rootView.findViewById(R.id.bookingsTitleTV);
+		
+		if (setting.getDuration() == 1) {
+			bookingsTitleTV.setText(getResources().getString(R.string.booking_manage_info_ar));
+		}
 		
 		if (bookingFunctions.isConnectingToInternet()) {
 			new BookingAsyncTask().execute();
