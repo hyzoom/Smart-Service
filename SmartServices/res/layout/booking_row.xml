@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="5.0dip"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="90.0dip"
+            android:layout_height="90.0dip"
+            android:layout_marginRight="5.0dip"
+            android:visibility="gone" >
+
+            <ProgressBar
+                android:id="@+id/refresh_prog_en"
+                style="@android:style/Widget.ProgressBar"
+                android:layout_width="70.0dip"
+                android:layout_height="70.0dip"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:indeterminateDuration="10"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="90.0dip"
+                android:layout_height="90.0dip"
+                android:background="#ff1a8942"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="left|center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5.0dip"
+                android:gravity="left"
+                android:text="@string/app_name"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="#ff000000"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5.0dip"
+                    android:gravity="left"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@+color/txtTitle" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:gravity="left"
+                    android:text="Car has been removed"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@+color/drkBkg"
+                    android:textColorLink="@+color/drkBkg"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="37892"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/drkBkg"
+                android:textColorLink="@color/drkBkg"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10.0dip"
+        android:gravity="right"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/edtBtn"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10.0dip"
+            android:background="@+drawable/wht_gry_btn"
+            android:drawablePadding="10.0dip"
+            android:drawableRight="@+drawable/edt"
+            android:text="edit"
+            android:textColor="#ff55acef"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/dltBtn"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@+drawable/wht_gry_btn"
+            android:drawablePadding="10.0dip"
+            android:drawableRight="@+drawable/dlt"
+            android:text="@+string/delete"
+            android:textColor="#ffca1d1d"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:layout_below="@id/l1"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:background="@color/drkBkg" />
+
+</RelativeLayout>

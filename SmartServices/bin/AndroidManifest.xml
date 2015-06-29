@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="info.androidhive.slidingmenu"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <permission
+        android:name="redfingers.com.locationmode.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="redfingers.com.locationmode.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="info.androidhive.slidingmenu.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <permission
+        android:name="info.androidhive.slidingmenu.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:name="smart.services.GCM.notification.Controller"
+        android:supportsRtl="true"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="smart.services.start.SplashScreen"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="info.androidhive.slidingmenu.ScheduleService" />
+        <service android:name="info.androidhive.slidingmenu.NotifyService" />
+
+        <receiver
+            android:name="smart.services.GCM.notification.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="info.androidhive.slidingmenu" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="smart.services.GCM.notification.GCMIntentService" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBCSuq3_1SpekIqtXz9ffFxaVv7qsJK8ZQ" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity android:name="smart.services.start.StartScreen" >
+        </activity>
+        <activity
+            android:name="smart.services.activity.MainActivity"
+            android:exported="true" >
+        </activity>
+        <activity android:name="smart.services.activity.SingleOfferActivity" >
+        </activity>
+        <activity android:name="smart.services.activity.CarsList" >
+        </activity>
+        <activity android:name="smart.services.start.SignUp" >
+        </activity>
+        <activity android:name="smart.services.start.SignIn" >
+        </activity>
+        <activity android:name="smart.services.start.SetNewPassword" >
+        </activity>
+        <activity android:name="smart.services.start.VerificationCode" >
+        </activity>
+        <activity android:name="smart.services.start.ForgetPassWord" >
+        </activity>
+    </application>
+
+</manifest>

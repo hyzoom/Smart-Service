@@ -1,0 +1,43 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- <item -->
+    <!-- android:id="@+id/action_complains" -->
+    <!-- android:orderInCategory="100" -->
+    <!-- android:showAsAction="never" -->
+    <!-- android:title="@string/complains"/> -->
+    <!-- <item -->
+    <!-- android:id="@+id/action_contactUs" -->
+    <!-- android:orderInCategory="100" -->
+    <!-- android:showAsAction="never" -->
+    <!-- android:title="@string/contactUs"/> -->
+    <!-- <item -->
+    <!-- android:id="@+id/action_aboutUs" -->
+    <!-- android:orderInCategory="100" -->
+    <!-- android:showAsAction="never" -->
+    <!-- android:title="@string/aboutUs"/> -->
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/settings"/>
+    
+    <item
+        android:id="@+id/action_arabic"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/arabic"/>
+    
+    <item
+        android:id="@+id/action_english"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/english"/>
+    
+    <!-- <item -->
+    <!-- android:id="@+id/action_settings" -->
+    <!-- android:showAsAction="ifRoom|withText" -->
+    <!-- android:title="@string/settings"/> -->
+
+</menu>

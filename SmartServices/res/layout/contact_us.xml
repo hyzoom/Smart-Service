@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/li"
+        android:layout_width="fill_parent"
+        android:layout_height="55dip"
+        android:layout_marginBottom="5dip"
+        android:background="#669933"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="3dip"
+            android:src="@drawable/bookin_i" />
+
+        <TextView
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Us"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/reach_us_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/reach_en" />
+
+    <Button
+        android:id="@+id/facbookButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Facebook" />
+
+    <Button
+        android:id="@+id/twitterButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Twitter" />
+
+    <Button
+        android:id="@+id/googleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Google+" />
+
+    <Button
+        android:id="@+id/youtubeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Youtube" />
+
+    <Button
+        android:id="@+id/instgramButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Instagram" />
+
+</LinearLayout>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/li"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginRight="10.0dip"
+            android:src="@drawable/reg" />
+
+        <TextView
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regestration"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/phoneNumber"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="* Mobile Number"
+        android:padding="10dip"
+        android:singleLine="true"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.25dip"
+        android:background="@android:color/black" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="* Name"
+        android:inputType="text"
+        android:padding="10dip"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.25dip"
+        android:background="@android:color/black" />
+
+    <EditText
+        android:id="@+id/eMail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="* E-Mail"
+        android:inputType="textEmailAddress"
+        android:padding="10dip"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.25dip"
+        android:background="@android:color/black" />
+
+    <EditText
+        android:id="@+id/passWord"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="* PassWord"
+        android:inputType="textPassword"
+        android:padding="10dip"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.25dip"
+        android:background="@android:color/black" />
+
+    <EditText
+        android:id="@+id/passWordConf"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="* Confirm PassWord"
+        android:inputType="textPassword"
+        android:padding="5.0dip"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.25dip"
+        android:background="@android:color/black" />
+
+    <EditText
+        android:id="@+id/addressET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="Address"
+        android:padding="5.0dip"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/errorTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:gravity="center"
+        android:textColor="#ff669900"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/signUpBtn2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:background="@drawable/grn_btn"
+        android:onClick="signUp"
+        android:padding="7.0dip"
+        android:singleLine="true"
+        android:text="Sign Up"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Smart Services</string>
+    <string name="complains">Complains</string>
+    <string name="contactUs">Contact Us</string>
+    <string name="aboutUs">About Us</string>
+    <string name="settings">Settings</string>
+    <string name="arabic">عربي</string>
+    <string name="english">Emglish</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    <string name="call_en">Call Us</string>
+    <string name="call_ar">اتصل بنا</string>
+    <string name="update_en">Update</string>
+    <string name="update_ar">تحديث</string>
+    <string name="delete_en">Delete</string>
+    <string name="delete_ar">حذف</string>
+    <string name="complain_en">Submit Complain</string>
+    <string name="complain_ar">ارسل شكوى</string>
+    <string name="contact_us_en">Contact Us</string>
+    <string name="contact_us_ar">راسلنا</string>
+    <string name="reach_en">Reach us on social media</string>
+    <string name="reach_ar">تعالى على التواصل الاجتماعى</string>
+    <string name="about_us_en">About Us</string>
+    <string name="about_us_ar">عنا</string>
+    <string name="services_en">Services</string>
+    <string name="services_ar">الخدمات</string>
+    <string name="settings_ar">الاعدادات</string>
+    <string name="update_user_info_ar">تعديل معلومات المستخدم</string>
+    <string name="log_out_ar">تسجيل الخروج</string>
+    <string name="settings_en">Settings</string>
+    <string name="update_user_info_en">Update User Info</string>
+    <string name="log_out_en">Log Out</string>
+    <string name="yes_ar">نعم</string>
+    <string name="cancel_ar">الغاء الامر</string>
+    <string name="sure_ar">تأكيد</string>
+    <string name="update_profile_ar">تعديل صفحة المستخدم</string>
+    <string name="save_ar">حفظ</string>
+    <string name="update_profile_en">Update Profile</string>
+    <string name="add_booking_title_en">Add Booking</string>
+    <string name="booking_choose_car_en">Choose a Car</string>
+    <string name="booking_service_type_en">Choose service type</string>
+    <string name="booking_time_en">Choose time</string>
+    <string name="booking_comment_en">Comment</string>
+    <string name="booking_submet_en">Submit</string>
+    <string name="add_booking_title_ar">أضافة حجز</string>
+    <string name="booking_choose_car_ar">اختر عربية</string>
+    <string name="booking_service_type_ar">اختر الخدمة</string>
+    <string name="booking_time_ar">اختر الوقت</string>
+    <string name="booking_comment_ar">ملاحظات</string>
+    <string name="booking_submet_ar">ارسال</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
+    <string name="server_registered">From Demo Server: successfully added device!</string>
+    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
+    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
+    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
+    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+    <string name="gcm_error">From GCM: error (%1$s).</string>
+    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
+
+    <!-- English Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Settings</item>
+        <item>Services</item>
+        <item>Booking</item>
+        <item>Manage Bookings</item>
+        <item>Add New Car</item>
+        <item>Manage Cars Info</item>
+        <item>Offers</item>
+        <item>El7a2ona</item>
+        <item>Mainatiance</item>
+        <item>Complains</item>
+        <item>Contact Us</item>
+        <item>Smart Service</item>
+    </string-array>
+
+    <!-- Arabic Nav Drawer Menu Items -->
+    <string-array name="arabic_nav_drawer_items">
+        <item>الاإعدادات</item>
+        <item>خدمات</item>
+        <item>الحجز</item>
+        <item>إدارة الحجوزات</item>
+        <item>سيارة جديدة</item>
+        <item>إدارة السيارات</item>
+        <item>عروض</item>
+        <item>الحقونا</item>
+        <item>الصيانة</item>
+        <item>أرسل شكوى</item>
+        <item>اتصل بنا</item>
+        <item>Smart Service</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/serv_icon</item>
+        <item>@drawable/mng_bkn_hl</item>
+        <item>@drawable/mng_bkn_hl</item>
+        <item>@drawable/add_car</item>
+        <item>@drawable/mng_info</item>
+        <item>@drawable/serv_icon</item>
+        <item>@drawable/el7</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+        <item>@drawable/ic_launcher</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+
+</resources>

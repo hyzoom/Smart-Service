@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:layout_weight="7"
+        android:id="@+id/serviceNumberTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:textSize="20sp" />
+
+    <Button
+        android:layout_weight="1"
+        android:id="@+id/callButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dip"
+        android:background="@drawable/contact_button0" />
+
+</LinearLayout> 

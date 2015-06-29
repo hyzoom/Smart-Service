@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/li"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dip"
+        android:layout_marginTop="20dip"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5.0dip"
+            android:layout_marginRight="10.0dip"
+            android:src="@drawable/reg" />
+
+        <TextView
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verification Code"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        style="@android:style/TextAppearance.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dip"
+        android:gravity="center"
+        android:text="Please enter your phone number to get Verification Code"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/phoneNum"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="Mobile Number"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:padding="10dip"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.25dip"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/errorTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#ff669900"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/signUpBtn2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/grn_btn"
+        android:onClick="getCode"
+        android:padding="7.0dip"
+        android:singleLine="true"
+        android:text="Get the Code"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        style="@android:style/TextAppearance.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dip"
+        android:gravity="center"
+        android:text="Please enter the received code here"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/codeET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:background="#ffffffff"
+        android:gravity="center"
+        android:hint="Code"
+        android:padding="10dip"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.25dip"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/codeErrorTxt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center"
+        android:text=""
+        android:textColor="#ff669900"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/signUpBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="15dip"
+        android:background="@drawable/grn_btn"
+        android:onClick="signUp"
+        android:padding="7.0dip"
+        android:singleLine="true"
+        android:text="Continue"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>
