@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/typeNameEn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dip"
         android:text="TextView"
@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/typeId"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dip"
         android:text="TextView"

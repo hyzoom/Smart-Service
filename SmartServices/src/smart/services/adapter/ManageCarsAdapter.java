@@ -232,7 +232,7 @@ public class ManageCarsAdapter extends ArrayAdapter<CarTest> {
 			// Log.e("carId", carList.get(position).getCarId());
 			// Log.e("befor", carList.get(position).getId()+"");
 
-			Toast.makeText(context, eCode, Toast.LENGTH_LONG).show();
+//			Toast.makeText(context, eCode, Toast.LENGTH_LONG).show();
 
 			if (eCode.equals("0")) {
 				Toast.makeText(context, "Record deleted Successfully",

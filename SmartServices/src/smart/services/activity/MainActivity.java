@@ -576,12 +576,11 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		dataBaseHandler = new DataBaseHandler(this.getApplicationContext());
 
-		
-
 		// mTitle = mDrawerTitle = getTitle();
 
 		// nav drawer icons from resources
-		navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+		navMenuIcons = getResources()
+				.obtainTypedArray(R.array.nav_drawer_icons);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
@@ -597,35 +596,50 @@ public class MainActivity extends Activity {
 			setting = new Setting();
 			setting.setDuration(0);
 			dataBaseHandler.addSetting(setting);
-			navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+			navMenuTitles = getResources().getStringArray(
+					R.array.nav_drawer_items);
 		} else {
 			setting = dataBaseHandler.getSetting();
 
 			if (setting.getDuration() == 1) {
 				ViewCompat.setLayoutDirection(getWindow().getDecorView(),
 						ViewCompat.LAYOUT_DIRECTION_RTL);
-				navMenuTitles = getResources().getStringArray(R.array.arabic_nav_drawer_items);
-				
+				navMenuTitles = getResources().getStringArray(
+						R.array.arabic_nav_drawer_items);
+
 			} else {
 				// load slide menu items
-				navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+				navMenuTitles = getResources().getStringArray(
+						R.array.nav_drawer_items);
 			}
 		}
-		
-		navDrawerItems.add(new NavDrawerItem("Welcome,\n " + dataBaseHandler.getUser(1).getName(), R.drawable.smarty1));
 
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[11],	R.drawable.icon0));
-		
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], R.drawable.trans));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9], R.drawable.trans));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[10], R.drawable.trans));
+		navDrawerItems.add(new NavDrawerItem("Welcome,\n "
+				+ dataBaseHandler.getUser(1).getName(), R.drawable.smarty1));
+
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[11],
+				R.drawable.icon0));
+
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons
+				.getResourceId(1, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons
+				.getResourceId(2, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons
+				.getResourceId(3, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons
+				.getResourceId(4, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons
+				.getResourceId(5, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons
+				.getResourceId(6, -1)));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons
+				.getResourceId(7, -1)));
+		navDrawerItems
+				.add(new NavDrawerItem(navMenuTitles[8], R.drawable.trans));
+		navDrawerItems
+				.add(new NavDrawerItem(navMenuTitles[9], R.drawable.trans));
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[10],
+				R.drawable.trans));
 
 		// Recycle the typed array
 		navMenuIcons.recycle();
@@ -769,7 +783,7 @@ public class MainActivity extends Activity {
 			fragment = new Settings();
 			break;
 		case 1:
-			fragment = new AboutUs();
+			fragment = new Settings();
 			break;
 		case 2:
 			fragment = new Services();

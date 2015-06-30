@@ -75,7 +75,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/brandImageViewEn"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
@@ -83,6 +83,17 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
                     android:src="@drawable/dcurs" />
+                
+                <ImageView
+                    android:id="@+id/brandImageViewAr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
+                    android:src="@drawable/dcurs" />
+                
             </RelativeLayout>
 
             <TextView
@@ -116,13 +127,23 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/modelIVEn"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
+                    android:src="@drawable/dcurs" />
+                
+                <ImageView
+                    android:id="@+id/modelIVAr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
                     android:src="@drawable/dcurs" />
             </RelativeLayout>
 
@@ -157,13 +178,23 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/yearIVEn"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
+                    android:src="@drawable/dcurs" />
+                
+                <ImageView
+                    android:id="@+id/yearIVAr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
                     android:src="@drawable/dcurs" />
             </RelativeLayout>
 
@@ -188,7 +219,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/imageView31"
+                    android:id="@+id/colorIVEn"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
@@ -196,6 +227,17 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
                     android:src="@drawable/dcurs" />
+                
+                <ImageView
+                    android:id="@+id/colorIVAr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
+                    android:src="@drawable/dcurs" />
+                
             </RelativeLayout>
 
             <View
@@ -240,7 +282,7 @@
                     android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/insuranceCompanyIVEn"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
@@ -248,6 +290,17 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dip"
                     android:src="@drawable/dcurs" />
+                
+                <ImageView
+                    android:id="@+id/insuranceCompanyIVAr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dip"
+                    android:src="@drawable/dcurs" />
+                
             </RelativeLayout>
 
             <View

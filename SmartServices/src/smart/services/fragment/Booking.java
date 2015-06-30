@@ -288,8 +288,7 @@ public class Booking extends Fragment {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 
-					CarTest selectedCar = databaseHandler.getCar(carsList.get(
-							position).get("carId"));
+					CarTest selectedCar = databaseHandler.getCar(carsList.get(position).get("carId"));
 
 					String currModelId = selectedCar.getCarModelId();
 					Model model = databaseHandler.getModel(currModelId);

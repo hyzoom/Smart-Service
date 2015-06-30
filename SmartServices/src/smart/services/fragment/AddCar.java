@@ -18,6 +18,7 @@ import smart.services.model.Insurance;
 import smart.services.model.Model;
 import smart.services.model.Setting;
 import info.androidhive.slidingmenu.R;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -28,12 +29,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -44,14 +47,16 @@ import android.widget.AdapterView.OnItemClickListener;
 public class AddCar extends Fragment {
 	ListView lv;
 	SwipeRefreshLayout swipeView;
-	TextView addCarTitleTV, brandTV, brandIdTV, modelTV, modelIdTV, colorNameTV, yearTV,
-			insuranceTV, insuranceIdTV, errorMessageTV, colorIdTV;
+	TextView addCarTitleTV, brandTV, brandIdTV, modelTV, modelIdTV,
+			colorNameTV, yearTV, insuranceTV, insuranceIdTV, errorMessageTV,
+			colorIdTV;
 	EditText memberName, chassisEt, licenseNumberET;
 	Button submit;
 	private ProgressDialog pDialog;
 	private static String URL = "http://smarty-trioplus.rhcloud.com/supportCenter/CarList";
 	private static String colorURL = "http://smarty-trioplus.rhcloud.com/supportCenter/getCarColors";
-	private static String insuranceURL = "http://smarty-trioplus.rhcloud.com/supportCenter/insuranceCompanyList";
+	// private static String insuranceURL =
+	// "http://smarty-trioplus.rhcloud.com/supportCenter/insuranceCompanyList";
 	private static String addCarURL = "http://smarty-trioplus.rhcloud.com/supportCenter/addCar?";
 
 	JSONParser jP = new JSONParser();
@@ -66,11 +71,16 @@ public class AddCar extends Fragment {
 			carsColorList, insuracneCompanyList;
 	HashMap<String, String> model;
 
+	private ImageView brandIVEn, modelIVEn, yearIVEn, colorIVEn,
+			insuranceCopanyIVEn, brandIVAr, modelIVAr, yearIVAr, colorIVAr,
+			insuranceCopanyIVAr;
 	private DataBaseHandler dataBaseHandler;
 	private Dialog dialog;
 	private CarFunctions carFunctions;
 	private ProgressDialog progress;
 	private Setting setting;
+
+	private String brandIdSelected;
 
 	public AddCar() {
 	}
@@ -81,8 +91,9 @@ public class AddCar extends Fragment {
 		dataBaseHandler = new DataBaseHandler(getActivity());
 		carFunctions = new CarFunctions(getActivity());
 		dialog = new Dialog(getActivity());
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setting = dataBaseHandler.getSetting();
-		
+
 		View rootView = inflater.inflate(R.layout.add_car, container, false);
 		submit = (Button) rootView.findViewById(R.id.submit);
 		addCarTitleTV = (TextView) rootView.findViewById(R.id.addCarTitleTV);
@@ -96,7 +107,21 @@ public class AddCar extends Fragment {
 		insuranceTV = (TextView) rootView.findViewById(R.id.insuranceTV);
 		insuranceIdTV = (TextView) rootView.findViewById(R.id.insuranceIdTV);
 		errorMessageTV = (TextView) rootView.findViewById(R.id.errorMsg);
-		
+
+		// Image views
+		brandIVEn = (ImageView) rootView.findViewById(R.id.brandImageViewEn);
+		modelIVEn = (ImageView) rootView.findViewById(R.id.modelIVEn);
+		yearIVEn = (ImageView) rootView.findViewById(R.id.yearIVEn);
+		colorIVEn = (ImageView) rootView.findViewById(R.id.colorIVEn);
+		insuranceCopanyIVEn = (ImageView) rootView
+				.findViewById(R.id.insuranceCompanyIVEn);
+		brandIVAr = (ImageView) rootView.findViewById(R.id.brandImageViewAr);
+		modelIVAr = (ImageView) rootView.findViewById(R.id.modelIVAr);
+		yearIVAr = (ImageView) rootView.findViewById(R.id.yearIVAr);
+		colorIVAr = (ImageView) rootView.findViewById(R.id.colorIVAr);
+		insuranceCopanyIVAr = (ImageView) rootView
+				.findViewById(R.id.insuranceCompanyIVAr);
+
 		chassisEt = (EditText) rootView.findViewById(R.id.chassis);
 		memberName = (EditText) rootView.findViewById(R.id.memberName);
 		licenseNumberET = (EditText) rootView.findViewById(R.id.licenseNumber);
@@ -114,14 +139,36 @@ public class AddCar extends Fragment {
 
 	public void init() {
 		if (setting.getDuration() == 1) {
-			addCarTitleTV.setText(getResources().getString(R.string.add_car_title_ar));
-			brandTV.setHint(getResources().getString(R.string.add_car_hint_brand_ar));
-			modelTV.setHint(getResources().getString(R.string.add_car_hint_model_ar));
-			yearTV.setHint(getResources().getString(R.string.add_car_hint_year_ar));
-			colorNameTV.setHint(getResources().getString(R.string.add_car_hint_color_ar));
-			insuranceTV.setHint(getResources().getString(R.string.add_car_hint_insurance_company_ar));
-			licenseNumberET.setHint(getResources().getString(R.string.add_car_hint_licence_ar));
-			chassisEt.setHint(getResources().getString(R.string.add_car_hint_chass_ar));
+			addCarTitleTV.setText(getResources().getString(
+					R.string.add_car_title_ar));
+			brandTV.setHint(getResources().getString(
+					R.string.add_car_hint_brand_ar));
+			modelTV.setHint(getResources().getString(
+					R.string.add_car_hint_model_ar));
+			yearTV.setHint(getResources().getString(
+					R.string.add_car_hint_year_ar));
+			colorNameTV.setHint(getResources().getString(
+					R.string.add_car_hint_color_ar));
+			insuranceTV.setHint(getResources().getString(
+					R.string.add_car_hint_insurance_company_ar));
+			licenseNumberET.setHint(getResources().getString(
+					R.string.add_car_hint_licence_ar));
+			chassisEt.setHint(getResources().getString(
+					R.string.add_car_hint_chass_ar));
+
+			brandIVEn.setVisibility(View.GONE);
+			modelIVEn.setVisibility(View.GONE);
+			yearIVEn.setVisibility(View.GONE);
+			colorIVEn.setVisibility(View.GONE);
+			insuranceCopanyIVEn.setVisibility(View.GONE);
+
+			submit.setText(getResources().getString(R.string.booking_submet_ar));
+		} else {
+			brandIVAr.setVisibility(View.GONE);
+			modelIVAr.setVisibility(View.GONE);
+			yearIVAr.setVisibility(View.GONE);
+			colorIVAr.setVisibility(View.GONE);
+			insuranceCopanyIVAr.setVisibility(View.GONE);
 		}
 		carsBrandList = new ArrayList<HashMap<String, String>>();
 		carsModelList = new ArrayList<HashMap<String, String>>();
@@ -301,11 +348,12 @@ public class AddCar extends Fragment {
 				// colorNameTV.getText().toString(), this.finalChase);
 				// newCar.setUserId(dataBaseHandler.getUser(1).getUserId());
 				dataBaseHandler.addCar(newC);
-				getActivity().finish();
-				Intent intent = new Intent(getActivity(), getActivity()
-						.getClass());
-				intent.putExtra("fragNum", "6");
-				getActivity().startActivity(intent);
+				new RefreshCars().execute();
+				// getActivity().finish();
+				// Intent intent = new Intent(getActivity(), getActivity()
+				// .getClass());
+				// intent.putExtra("fragNum", "6");
+				// getActivity().startActivity(intent);
 			}
 			if (pDialog.isShowing()) {
 				pDialog.dismiss();
@@ -313,12 +361,53 @@ public class AddCar extends Fragment {
 		}
 	}
 
+	private class RefreshCars extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progress = ProgressDialog.show(AddCar.this.getActivity(), "",
+					"Loading...");
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			carFunctions.saveJSONUserCars();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void aVoid) {
+			super.onPostExecute(aVoid);
+			if (progress.isShowing()) {
+				progress.dismiss();
+			}
+			getActivity().finish();
+			Intent intent = new Intent(getActivity(), getActivity().getClass());
+			intent.putExtra("fragNum", "6");
+			getActivity().startActivity(intent);
+		}
+	}
+
+	@SuppressLint("InlinedApi")
 	@SuppressWarnings("deprecation")
 	public void showYearDialog() {
-		final Dialog dialog = new Dialog(getActivity());
 		dialog.setContentView(R.layout.add_car_dialog);
 		dialog.setCancelable(true);
-		dialog.setTitle("Choose a Year");
+
+		TextView dialogTitleTV = (TextView) dialog
+				.findViewById(R.id.brandsListTitleTV);
+
+		if (setting.getDuration() == 0) {
+			dialog.findViewById(R.id.titleIVAr).setVisibility(View.GONE);
+			dialogTitleTV.setText(getResources().getString(
+					R.string.year_list_en));
+		} else {
+			dialog.findViewById(R.id.titleIVEn).setVisibility(View.GONE);
+			dialogTitleTV.setText(getResources().getString(
+					R.string.year_list_ar));
+		}
+
 		Booking.changeWidthHeight(getActivity(), dialog);
 		lv = (ListView) dialog.findViewById(R.id.addLV);
 		swipeView = (SwipeRefreshLayout) dialog.findViewById(R.id.swipeDialog);
@@ -350,6 +439,7 @@ public class AddCar extends Fragment {
 		dialog.show();
 	}
 
+	@SuppressLint("InlinedApi")
 	@SuppressWarnings("deprecation")
 	public void showBrandDialog() {
 		if (dataBaseHandler.getBrandsCount() == 0) {
@@ -363,12 +453,15 @@ public class AddCar extends Fragment {
 		} else {
 			dialog.setContentView(R.layout.add_car_dialog);
 			dialog.setCancelable(true);
-			dialog.setTitle("Choose a Brand");
 
 			Booking.changeWidthHeight(getActivity(), dialog);
 			// dialog.setP
 			lv = (ListView) dialog.findViewById(R.id.addLV);
+			TextView dialogTitle = (TextView) dialog
+					.findViewById(R.id.brandsListTitleTV);
+
 			List<Brand> brandList = dataBaseHandler.getAllBrands();
+
 			carsBrandList.clear();
 			for (int i = 0; i < brandList.size(); i++) {
 				HashMap<String, String> brand = new HashMap<String, String>();
@@ -380,10 +473,24 @@ public class AddCar extends Fragment {
 				carsBrandList.add(brand);
 			}
 
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					carsBrandList, R.layout.single_brand_item, new String[] {
-							"typeId", "typeNameEn" }, new int[] { R.id.typeId,
-							R.id.typeNameEn });
+			ListAdapter adapter = null;
+
+			if (setting.getDuration() == 0) {
+				dialog.findViewById(R.id.titleIVAr).setVisibility(View.GONE);
+				adapter = new SimpleAdapter(getActivity(), carsBrandList,
+						R.layout.single_brand_item, new String[] { "typeId",
+								"typeNameEn" }, new int[] { R.id.typeId,
+								R.id.typeNameEn });
+			} else {
+				dialog.findViewById(R.id.titleIVEn).setVisibility(View.GONE);
+				dialogTitle.setText(getResources().getString(
+						R.string.add_car_brand_dialog_ar));
+
+				adapter = new SimpleAdapter(getActivity(), carsBrandList,
+						R.layout.single_brand_item, new String[] { "typeId",
+								"typeNameAr" }, new int[] { R.id.typeId,
+								R.id.typeNameEn });
+			}
 
 			lv.setAdapter(adapter);
 
@@ -417,6 +524,10 @@ public class AddCar extends Fragment {
 					brandTV.setText(s);
 					String sId = ((TextView) view.findViewById(R.id.typeId))
 							.getText().toString();
+					brandIdSelected = sId;
+
+					// Toast.makeText(getActivity(), sId,
+					// Toast.LENGTH_SHORT).show();
 					brandIdTV.setText(sId);
 					dialog.dismiss();
 				}
@@ -441,6 +552,7 @@ public class AddCar extends Fragment {
 			return null;
 		}
 
+		@SuppressLint("InlinedApi")
 		@SuppressWarnings("deprecation")
 		@Override
 		protected void onPostExecute(Void aVoid) {
@@ -451,11 +563,15 @@ public class AddCar extends Fragment {
 
 			dialog.setContentView(R.layout.add_car_dialog);
 			dialog.setCancelable(true);
-			dialog.setTitle("Choose a Brand");
+
+			Booking.changeWidthHeight(getActivity(), dialog);
 			// dialog.setP
 			lv = (ListView) dialog.findViewById(R.id.addLV);
+			TextView dialogTitle = (TextView) dialog
+					.findViewById(R.id.brandsListTitleTV);
 
 			List<Brand> brandList = dataBaseHandler.getAllBrands();
+
 			carsBrandList.clear();
 			for (int i = 0; i < brandList.size(); i++) {
 				HashMap<String, String> brand = new HashMap<String, String>();
@@ -467,10 +583,24 @@ public class AddCar extends Fragment {
 				carsBrandList.add(brand);
 			}
 
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					carsBrandList, R.layout.single_brand_item, new String[] {
-							"typeId", "typeNameEn" }, new int[] { R.id.typeId,
-							R.id.typeNameEn });
+			ListAdapter adapter = null;
+
+			if (setting.getDuration() == 0) {
+				dialog.findViewById(R.id.titleIVAr).setVisibility(View.GONE);
+				adapter = new SimpleAdapter(getActivity(), carsBrandList,
+						R.layout.single_brand_item, new String[] { "typeId",
+								"typeNameEn" }, new int[] { R.id.typeId,
+								R.id.typeNameEn });
+			} else {
+				dialog.findViewById(R.id.titleIVEn).setVisibility(View.GONE);
+				dialogTitle.setText(getResources().getString(
+						R.string.add_car_brand_dialog_ar));
+
+				adapter = new SimpleAdapter(getActivity(), carsBrandList,
+						R.layout.single_brand_item, new String[] { "typeId",
+								"typeNameAr" }, new int[] { R.id.typeId,
+								R.id.typeNameEn });
+			}
 
 			lv.setAdapter(adapter);
 
@@ -513,11 +643,15 @@ public class AddCar extends Fragment {
 		}
 	}
 
+	@SuppressLint("InlinedApi")
 	@SuppressWarnings("deprecation")
 	public void showModelDialog() {
 		dialog.setContentView(R.layout.add_car_dialog);
 		dialog.setCancelable(true);
-		dialog.setTitle("Choose a Model");
+
+		TextView dialogTitleTV = (TextView) dialog
+				.findViewById(R.id.brandsListTitleTV);
+
 		Booking.changeWidthHeight(getActivity(), dialog);
 		// dialog.setP
 		lv = (ListView) dialog.findViewById(R.id.addLV);
@@ -534,7 +668,12 @@ public class AddCar extends Fragment {
 			carsModelList.clear();
 			for (int i = 0; i < modelList.size(); i++) {
 				if (modelList.get(i).getParentBrand()
-						.equals(brandTV.getText().toString())) {
+						.equals(brandTV.getText().toString())
+						|| modelList
+								.get(i)
+								.getParentBrand()
+								.equals(dataBaseHandler.getBrand(
+										brandIdSelected).getTypeNameEn())) {
 					HashMap<String, String> model = new HashMap<String, String>();
 
 					model.put("modelId", modelList.get(i).getTypeId());
@@ -549,8 +688,15 @@ public class AddCar extends Fragment {
 				if (carFunctions.isConnectingToInternet()) {
 					for (int i = 0; i < modelList.size(); i++) {
 						if (modelList.get(i).getParentBrand()
-								.equals(brandTV.getText().toString())) {
-							dataBaseHandler.deleteSingleBrand(modelList.get(i).getId());
+								.equals(brandTV.getText().toString())
+								|| modelList
+										.get(i)
+										.getParentBrand()
+										.equals(dataBaseHandler.getBrand(
+												brandIdSelected)
+												.getTypeNameEn())) {
+							dataBaseHandler.deleteSingleBrand(modelList.get(i)
+									.getId());
 						}
 					}
 					new CarModel().execute();
@@ -560,10 +706,28 @@ public class AddCar extends Fragment {
 							.show();
 				}
 			} else {
-				ListAdapter adapter = new SimpleAdapter(getActivity(),
-						carsModelList, R.layout.single_model_item,
-						new String[] { "modelId", "modelNameEn" }, new int[] {
-								R.id.modelId, R.id.modelNameEn });
+				ListAdapter adapter = null;
+				if (setting.getDuration() == 0) {
+					dialog.findViewById(R.id.titleIVAr)
+							.setVisibility(View.GONE);
+					dialogTitleTV.setText(getResources().getString(
+							R.string.model_list_en));
+
+					adapter = new SimpleAdapter(getActivity(), carsModelList,
+							R.layout.single_model_item, new String[] {
+									"modelId", "modelNameEn" }, new int[] {
+									R.id.modelId, R.id.modelNameEn });
+				} else {
+					dialog.findViewById(R.id.titleIVEn)
+							.setVisibility(View.GONE);
+					dialogTitleTV.setText(getResources().getString(
+							R.string.model_list_ar));
+
+					adapter = new SimpleAdapter(getActivity(), carsModelList,
+							R.layout.single_model_item, new String[] {
+									"modelId", "modelNameAr" }, new int[] {
+									R.id.modelId, R.id.modelNameEn });
+				}
 
 				lv.setAdapter(adapter);
 				dialog.show();
@@ -682,11 +846,15 @@ public class AddCar extends Fragment {
 		}
 	}
 
+	@SuppressLint("InlinedApi")
 	@SuppressWarnings("deprecation")
 	public void showColorDialog() {
 		dialog.setContentView(R.layout.add_car_dialog);
 		dialog.setCancelable(true);
-		dialog.setTitle("Choose a Color");
+
+		TextView dialogTitleTV = (TextView) dialog
+				.findViewById(R.id.brandsListTitleTV);
+
 		Booking.changeWidthHeight(getActivity(), dialog);
 		// dialog.setP
 		lv = (ListView) dialog.findViewById(R.id.addLV);
@@ -699,6 +867,7 @@ public class AddCar extends Fragment {
 						Toast.LENGTH_LONG).show();
 			}
 		} else {
+
 			List<Color> colorList = dataBaseHandler.getAllColors();
 
 			carsColorList.clear();
@@ -710,10 +879,26 @@ public class AddCar extends Fragment {
 
 				carsColorList.add(color);
 			}
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					carsColorList, R.layout.single_color_item, new String[] {
-							"id", "colorEn" }, new int[] { R.id.id,
-							R.id.colorEn });
+			ListAdapter adapter = null;
+
+			if (setting.getDuration() == 0) {
+				dialog.findViewById(R.id.titleIVAr).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.color_list_en));
+
+				adapter = new SimpleAdapter(getActivity(), carsColorList,
+						R.layout.single_color_item, new String[] { "id",
+								"colorEn" },
+						new int[] { R.id.id, R.id.colorEn });
+			} else {
+				dialog.findViewById(R.id.titleIVEn).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.color_list_ar));
+
+				adapter = new SimpleAdapter(getActivity(), carsColorList,
+						R.layout.single_color_item, new String[] { "id",
+								"coloAr" }, new int[] { R.id.id, R.id.colorEn });
+			}
 
 			lv.setAdapter(adapter);
 
@@ -803,6 +988,7 @@ public class AddCar extends Fragment {
 			return null;
 		}
 
+		@SuppressLint("InlinedApi")
 		@SuppressWarnings("deprecation")
 		@Override
 		protected void onPostExecute(Void result) {
@@ -811,12 +997,42 @@ public class AddCar extends Fragment {
 			if (progress.isShowing()) {
 				progress.dismiss();
 			}
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					carsColorList, R.layout.single_color_item, new String[] {
-							"id", "colorEn" }, new int[] { R.id.id,
-							R.id.colorEn });
+			TextView dialogTitleTV = (TextView) dialog
+					.findViewById(R.id.brandsListTitleTV);
+			List<Color> colorList = dataBaseHandler.getAllColors();
+
+			carsColorList.clear();
+			for (int i = 0; i < colorList.size(); i++) {
+				HashMap<String, String> color = new HashMap<String, String>();
+				color.put("id", colorList.get(i).getColorId());
+				color.put("coloAr", colorList.get(i).getColorAr());
+				color.put("colorEn", colorList.get(i).getColorEn());
+
+				carsColorList.add(color);
+			}
+			ListAdapter adapter = null;
+
+			if (setting.getDuration() == 0) {
+				dialog.findViewById(R.id.titleIVAr).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.color_list_en));
+
+				adapter = new SimpleAdapter(getActivity(), carsColorList,
+						R.layout.single_color_item, new String[] { "id",
+								"colorEn" },
+						new int[] { R.id.id, R.id.colorEn });
+			} else {
+				dialog.findViewById(R.id.titleIVEn).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.color_list_ar));
+
+				adapter = new SimpleAdapter(getActivity(), carsColorList,
+						R.layout.single_color_item, new String[] { "id",
+								"coloAr" }, new int[] { R.id.id, R.id.colorEn });
+			}
 
 			lv.setAdapter(adapter);
+
 			swipeView = (SwipeRefreshLayout) dialog
 					.findViewById(R.id.swipeDialog);
 			swipeView
@@ -831,6 +1047,7 @@ public class AddCar extends Fragment {
 										"Check your internet connection",
 										Toast.LENGTH_LONG).show();
 							}
+							swipeView.setRefreshing(false);
 						}
 					});
 			swipeView.setColorScheme(android.R.color.holo_blue_bright,
@@ -850,15 +1067,21 @@ public class AddCar extends Fragment {
 					dialog.dismiss();
 				}
 			});
+
 			dialog.show();
 		}
 	}
 
+	@SuppressLint("InlinedApi")
 	@SuppressWarnings("deprecation")
 	public void showInsuranceDialog() {
 		dialog.setContentView(R.layout.add_car_dialog);
 		dialog.setCancelable(true);
 		dialog.setTitle("Choose an Insurance company");
+
+		TextView dialogTitleTV = (TextView) dialog
+				.findViewById(R.id.brandsListTitleTV);
+
 		Booking.changeWidthHeight(getActivity(), dialog);
 		// dialog.setP
 		lv = (ListView) dialog.findViewById(R.id.addLV);
@@ -872,7 +1095,8 @@ public class AddCar extends Fragment {
 			}
 		} else {
 			insuracneCompanyList.clear();
-			ArrayList<Insurance> insuranceArrayList = dataBaseHandler.getAllInsurance();
+			ArrayList<Insurance> insuranceArrayList = dataBaseHandler
+					.getAllInsurance();
 			for (int i = 0; i < insuranceArrayList.size(); i++) {
 				HashMap<String, String> insurance = new HashMap<String, String>();
 				insurance.put("id", insuranceArrayList.get(i).getId() + "");
@@ -882,10 +1106,27 @@ public class AddCar extends Fragment {
 				insuracneCompanyList.add(insurance);
 			}
 
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					insuracneCompanyList, R.layout.single_insurance_item,
-					new String[] { "id", "nameEn" }, new int[] {
-							R.id.insuranceId, R.id.nameEn });
+			ListAdapter adapter = null;
+
+			if (setting.getDuration() == 0) {
+				dialog.findViewById(R.id.titleIVAr).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.company_list_en));
+
+				adapter = new SimpleAdapter(getActivity(),
+						insuracneCompanyList, R.layout.single_insurance_item,
+						new String[] { "id", "nameEn" }, new int[] {
+								R.id.insuranceId, R.id.nameEn });
+			} else {
+				dialog.findViewById(R.id.titleIVEn).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.company_list_ar));
+
+				adapter = new SimpleAdapter(getActivity(),
+						insuracneCompanyList, R.layout.single_insurance_item,
+						new String[] { "id", "nameAr" }, new int[] {
+								R.id.insuranceId, R.id.nameEn });
+			}
 
 			lv.setAdapter(adapter);
 
@@ -941,12 +1182,22 @@ public class AddCar extends Fragment {
 			return null;
 		}
 
+		@SuppressLint("InlinedApi")
 		@SuppressWarnings("deprecation")
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
+			// Dismiss the progress dialog
+			if (progress.isShowing()) {
+				progress.dismiss();
+			}
 
-			ArrayList<Insurance> insuranceArrayList = dataBaseHandler.getAllInsurance();
+			TextView dialogTitleTV = (TextView) dialog
+					.findViewById(R.id.brandsListTitleTV);
+
+			insuracneCompanyList.clear();
+			ArrayList<Insurance> insuranceArrayList = dataBaseHandler
+					.getAllInsurance();
 			for (int i = 0; i < insuranceArrayList.size(); i++) {
 				HashMap<String, String> insurance = new HashMap<String, String>();
 				insurance.put("id", insuranceArrayList.get(i).getId() + "");
@@ -956,16 +1207,30 @@ public class AddCar extends Fragment {
 				insuracneCompanyList.add(insurance);
 			}
 
-			// Dismiss the progress dialog
-			if (progress.isShowing()) {
-				progress.dismiss();
+			ListAdapter adapter = null;
+
+			if (setting.getDuration() == 0) {
+				dialog.findViewById(R.id.titleIVAr).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.company_list_en));
+
+				adapter = new SimpleAdapter(getActivity(),
+						insuracneCompanyList, R.layout.single_insurance_item,
+						new String[] { "id", "nameEn" }, new int[] {
+								R.id.insuranceId, R.id.nameEn });
+			} else {
+				dialog.findViewById(R.id.titleIVEn).setVisibility(View.GONE);
+				dialogTitleTV.setText(getResources().getString(
+						R.string.company_list_ar));
+
+				adapter = new SimpleAdapter(getActivity(),
+						insuracneCompanyList, R.layout.single_insurance_item,
+						new String[] { "id", "nameAr" }, new int[] {
+								R.id.insuranceId, R.id.nameEn });
 			}
-			ListAdapter adapter = new SimpleAdapter(getActivity(),
-					insuracneCompanyList, R.layout.single_insurance_item,
-					new String[] { "id", "nameEn" }, new int[] {
-							R.id.insuranceId, R.id.nameEn });
 
 			lv.setAdapter(adapter);
+
 			swipeView
 					.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 						@Override

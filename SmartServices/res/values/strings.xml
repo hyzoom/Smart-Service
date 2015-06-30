@@ -65,6 +65,15 @@
     <string name="add_car_hint_insurance_company_ar">* الشركة</string>
     <string name="add_car_hint_licence_ar">* رقم التعاقد</string>
     <string name="add_car_hint_chass_ar">* رقم الشاسية</string>
+    <string name="add_car_brand_dialog_ar">قائمة الأنواع</string>
+    <string name="color_list_en">Colors</string>
+    <string name="color_list_ar">الألوان</string>
+    <string name="year_list_en">Years</string>
+    <string name="year_list_ar">السنة</string>
+    <string name="company_list_en">Insurance Company</string>
+    <string name="company_list_ar">شركة التأمين</string>
+    <string name="model_list_en">Models</string>
+    <string name="model_list_ar">الموديلات</string>
     
     <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
     <string name="server_registered">From Demo Server: successfully added device!</string>
